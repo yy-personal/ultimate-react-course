@@ -143,7 +143,7 @@ function getBook(id) {
 	return data.find((d) => d.id === id);
 }
 
-const book = getBook(1);
+const book = getBook(3);
 book;
 
 // const title = book.title;
@@ -173,7 +173,7 @@ const updatedBook = {
 updatedBook;
 
 // Arrow functions
-const getYear = (str) => str.split("-")[0]
+const getYear = (str) => str.split("-")[0];
 
 // Template Literal
 const summary = `${title}, a ${pages}-page long book, was written by ${author} and published in ${getYear(
@@ -181,11 +181,12 @@ const summary = `${title}, a ${pages}-page long book, was written by ${author} a
 )}. The book has ${
 	hasMovieAdaptation ? "" : "not"
 } has been adapted as a movie`;
-summary
+summary;
 
 // Ternaries operator so no need to use if/else
 
-const pagesRange = book.pages > 1000 ? 'over a thousand' : 'less than 1 thousand'
+const pagesRange =
+	book.pages > 1000 ? "over a thousand" : "less than 1 thousand";
 pagesRange;
 console.log(`the book has ${pagesRange} pages`);
 
@@ -212,3 +213,13 @@ spanishTranslation;
 // const count = book.reviews.librarything.reviewsCount ?? "no data";
 // count;
 
+
+// optional chaining
+function getTotalReviewCount(book) {
+	const goodreads = book.reviews.goodreads?.reviewsCount?? 0;
+	const librarything = book.reviews.librarything?.reviewsCount ?? 0;
+	return goodreads + librarything;
+}
+console.log(getTotalReviewCount(book));
+
+// Array Map Method
