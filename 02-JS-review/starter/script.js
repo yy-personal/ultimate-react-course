@@ -213,13 +213,30 @@ spanishTranslation;
 // const count = book.reviews.librarything.reviewsCount ?? "no data";
 // count;
 
-
 // optional chaining
 function getTotalReviewCount(book) {
-	const goodreads = book.reviews.goodreads?.reviewsCount?? 0;
+	const goodreads = book.reviews.goodreads?.reviewsCount ?? 0;
 	const librarything = book.reviews.librarything?.reviewsCount ?? 0;
 	return goodreads + librarything;
 }
 console.log(getTotalReviewCount(book));
 
 // Array Map Method
+const books = getBooks();
+console.log(books);
+// const x=[1, 2, 3, 4, 5].map((el)=>el*2)
+// console.log(x)
+const titles = books.map((book) => book.title);
+
+const essentialData = books.map((book) => ({
+	title: book.title,
+	author: book.author,
+	reviewsCount: getTotalReviewCount(book),
+}));
+
+// Filter method
+console.log(`Filter Method`);
+const longBooks = books
+	.filter((book) => book.pages > 500)
+	.filter((book) => book.hasMovieAdaptation);
+longBooks;
