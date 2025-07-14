@@ -236,7 +236,50 @@ const essentialData = books.map((book) => ({
 
 // Filter method
 console.log(`Filter Method`);
-const longBooks = books
-	.filter((book) => book.pages > 500)
-	.filter((book) => book.hasMovieAdaptation);
+const longBooks = books.filter(
+	(book) => book.pages > 500 && book.hasMovieAdaptation
+);
 longBooks;
+
+// Mapping book genre with 'adventure' to adventureBooks on their title
+const adventureBooks = books
+	.filter((book) => book.genres.includes("adventure"))
+	.map((book) => book.title);
+adventureBooks;
+
+// Array reduce method
+const pageAllBooks = books.reduce((sum, book) => sum + book.pages, 0);
+pageAllBooks;
+
+// Array sort method
+const arr = [3, 7, 1, 9, 6];
+const sorted = arr.slice().sort((a, b) => a - b);
+sorted;
+arr;
+
+const sortedByPage = books.slice().sort((a, b) => b.pages - a.pages);
+sortedByPage;
+const sortedByPageBooks = sortedByPage.map((book) => ({
+	title: book.title,
+	pages: book.pages,
+}));
+sortedByPageBooks;
+const newBook = {
+	id: 6,
+	title: "The harry potter",
+	author: "j.k rowling",
+};
+
+// Add book to books array
+const booksAfterAdd = [...books, newBook];
+console.log(booksAfterAdd);
+
+// Delete book from books array
+const booksAfterDelete = booksAfterAdd.filter((book) => book.id !== 3);
+booksAfterDelete;
+
+// Update book objects from books array
+const booksAfterUpdate = booksAfterDelete.map((book) =>
+	book.id === 1 ? {...book, pages:1200000000} : book // update to empty object
+);
+booksAfterUpdate;
