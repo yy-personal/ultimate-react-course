@@ -49,7 +49,7 @@ const pizzaData = [
 
 function App() {
 	return (
-		<div>
+		<div className="container">
 			<Header />
 			<Menu />
 			<Footer />
@@ -67,7 +67,8 @@ function Menu() {
 			<h2>Our Menu</h2>
 
 			{numberPizzas > 0 ? (
-				<div>
+				<React.Fragment>
+					<p>Pizza mamamia</p>
 					<ul className="pizzas">
 						{pizzaData.map((pizza) => (
 							<Pizza
@@ -77,7 +78,7 @@ function Menu() {
 							/>
 						))}
 					</ul>
-				</div>
+				</React.Fragment>
 			) : (
 				<p>We're still working on the menu</p>
 			)}
@@ -92,20 +93,27 @@ function Menu() {
 	);
 }
 
-function Pizza(props) {
-	if (props.pizzaObj.soldOut) {
-		return null;
-	}
+function Pizza({ pizzaObj }) {
+	// if (pizzaObj.soldOut) {
+	// 	return null;
+	// }
 	return (
-		<div className="pizza">
+		<li className={`pizza ${pizzaObj.soldOut ? "sold-out" : ""}`}>
 			{/* pass pizzaObj as prop to 'Pizza' */}
-			<img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
+			<img src={pizzaObj.photoName} alt={pizzaObj.name} />
 			<div>
-				<h3>{props.pizzaObj.name}</h3>
-				<p>{props.pizzaObj.ingredients}</p>
-				<span>{props.pizzaObj.price + 3}</span>
+				<h3>{pizzaObj.name}</h3>
+				<p>{pizzaObj.ingredients}</p>
+				{/* {pizzaObj.soldOut ? (
+					<span>"SOLD OUT"</span>
+				) : (
+					<span>pizzaObj.price</span>
+				)} */}
+				<span>
+					{pizzaObj.soldOut ? "SOLD OUT" : pizzaObj.price + 1}
+				</span>
 			</div>
-		</div>
+		</li>
 	);
 }
 
@@ -146,11 +154,11 @@ function Footer() {
 	);
 }
 
-function Order(props) {
+function Order({ closeHour, openHour }) {
 	return (
 		<>
 			<p>
-				We're open from {props.openHour} to {props.closeHour}
+				We're open from {openHour} to {closeHour}
 			</p>
 			<button className="btn">Order</button>
 		</>
