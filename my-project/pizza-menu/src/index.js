@@ -58,35 +58,44 @@ function App() {
 }
 
 function Menu() {
+	const pizzas = pizzaData;
+	// const pizzas = [];
+	const numberPizzas = pizzas.length;
+
 	return (
 		<main className="menu">
 			<h2>Our Menu</h2>
-			<div>
-				<ul>
-					<li className="pizzas">
+
+			{numberPizzas > 0 ? (
+				<div>
+					<ul className="pizzas">
 						{pizzaData.map((pizza) => (
-							<Pizza pizzaObj={pizza} key={pizza.name} />
+							<Pizza
+								// this pizza here is actually an entire object, that is being passed into 'Pizza' function
+								pizzaObj={pizza}
+								key={pizza.name}
+							/>
 						))}
-					</li>
-				</ul>
-			</div>
+					</ul>
+				</div>
+			) : (
+				<p>We're still working on the menu</p>
+			)}
 			{/* <Pizza
 				name="Pizza Spinaci"
 				ingredients="Tomato, mozarella, spinach, and ricotta cheese"
 				photoName="pizzas/focaccia.jpg"
 				price={10}
 			/>
-			<Pizza
-				name="Pizza Funghi"
-				ingredients="Tomato, mozarella, mushrooms, and onion"
-				photoName="pizzas/funghi.jpg"
-				price={120}
-			/> */}
+			*/}
 		</main>
 	);
 }
 
 function Pizza(props) {
+	if (props.pizzaObj.soldOut) {
+		return null;
+	}
 	return (
 		<div className="pizza">
 			{/* pass pizzaObj as prop to 'Pizza' */}
@@ -109,20 +118,42 @@ function Header() {
 }
 
 function Footer() {
+	const timeNow = new Date().toLocaleTimeString();
 	const hour = new Date().getHours();
 	const openHour = 12;
 	const closeHour = 22;
 	const isOpen = hour >= openHour && hour <= closeHour;
 	console.log(isOpen);
-	// if (hour >= openHour && hour <= closeHour) {
-	// 	alert("We're currently open!");
-	// } else {
-	// 	alert("Sorry we're closed");
+	// if (!isOpen) {
+	// 	<p>
+	// 		Outside from return: We're not open, come back between {openHour} to {closeHour}
+	// 	</p>;
 	// }
 	return (
 		<footer className="footer">
-			{new Date().toLocaleTimeString()} We're currently open
+			<div className="order">
+				<p>Time now is: {timeNow}</p>
+				{isOpen ? (
+					<Order openHour={openHour} closeHour={closeHour} />
+				) : (
+					<p>
+						We're not open, come back between {openHour} to{" "}
+						{closeHour}
+					</p>
+				)}
+			</div>
 		</footer>
+	);
+}
+
+function Order(props) {
+	return (
+		<>
+			<p>
+				We're open from {props.openHour} to {props.closeHour}
+			</p>
+			<button className="btn">Order</button>
+		</>
 	);
 }
 
