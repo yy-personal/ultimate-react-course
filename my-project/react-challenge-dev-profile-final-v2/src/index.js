@@ -38,7 +38,7 @@ const skills = [
 function App() {
 	return (
 		<div className="card">
-			<Avatar photoName="pictures/focaccia.jpg" />
+			<Avatar photoName="jonas.jpeg" />
 			<div className="data">
 				<Intro name="Yin Yao" information="this is my information" />
 				{/* Should contain one Skill component
@@ -52,9 +52,9 @@ function App() {
 
 function Avatar({ photoName }) {
 	return (
-		<div className="avatar">
-			<img src={photoName} alt="" />
-		</div>
+		<>
+			<img className="avatar" src={photoName} alt="" />
+		</>
 	);
 }
 
