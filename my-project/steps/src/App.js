@@ -10,17 +10,19 @@ export default function App() {
 
 	function handlePrevious() {
 		if (step > 1) {
-			setStep(step - 1);
+			setStep((currentStep) => currentStep - 1);
+			// setStep(step - 1);
 		}
 	}
 	function handleNext() {
 		if (step < 3) {
-			setStep(step + 1);
+			setStep((currentStep) => currentStep + 1);
+			// setStep(step + 1);
 		}
 	}
 	function handleToggle() {
-		setIsOpen(!isOpen);
-		setStep(1);
+		setIsOpen((currentIsOpen) => !currentIsOpen);
+		// setStep(1);
 	}
 
 	
