@@ -142,40 +142,166 @@ function getBooks() {
 function getBook(id) {
   return data.find((d) => d.id === id);
 }
-
+/*
 // Destructuring
-const book = getBook(2)
+const book = getBook(2);
 book;
 
 const book_title = book.title;
-book_title
+book_title;
 
-const {title, author, genres, pages, publicationDate, hasMovieAdaptation} = book
+const { title, author, genres, pages, publicationDate, hasMovieAdaptation } =
+  book;
 
-console.log(author, title)
+console.log(author, title);
 
-console.log(genres)
+console.log(genres);
 
-console.log(genres[0])
-const [primaryGenre, secondaryGenre, ...otherGenres] = genres
-console.log(primaryGenre, secondaryGenre)
+console.log(genres[0]);
+const [primaryGenre, secondaryGenre, ...otherGenres] = genres;
+console.log(primaryGenre, secondaryGenre);
 
 // Rest Operator
-console.log(otherGenres)
+console.log(otherGenres);
 
 // Spread Operator
-const newGenres = [...genres,  'another fantasy']
-console.log(newGenres)
+const newGenres = [...genres, "another fantasy"];
+console.log(newGenres);
 //Update object
 // Added new property while replacing new property
-const updatedBook = {...book, moviePublicationDate: '2021-12-19', pages: 100}
-console.log(updatedBook)
+const updatedBook = { ...book, moviePublicationDate: "2021-12-19", pages: 100 };
+console.log(updatedBook);
+
+//Arrow functions
+//Original
+// function getYear(str){
+//   return str.split("-")[0]
+// }
+
+const getYear = (str) => {
+  return str.split("-")[0];
+};
+console.log(getYear(publicationDate));
+
 
 // Template literals
-const summary = `${title} is a book with ${pages}, published in ${publicationDate.split("-")[0]}. The book ${hasMovieAdaptation ? "":"not"} been adapted as a movie`
-summary
+const summary = `${title} is a book with ${pages}, published in ${getYear(publicationDate)
+  }. The book ${hasMovieAdaptation ? "" : "not"} been adapted as a movie`;
+summary;
 
 //Ternary operators
-const pagesRange = pages > 1000 ? 'over 1000' : 'less than 1000';
-pagesRange
-console.log(`book has ${pagesRange} pages`)
+const pagesRange = pages > 1000 ? "over 1000" : "less than 1000";
+pagesRange;
+console.log(`book has ${pagesRange} pages`);
+
+//Short Circuiting - return only the first value when is (&& for false) (|| for true)
+//Good for setting default values
+console.log(true && "some string")
+console.log(false && "some string")
+console.log(hasMovieAdaptation && "this book has a movie")
+//falsy value - null, undefine, 0, ''
+console.log("jonas" && 0)
+console.log(undefined && 'not undefine')
+
+//trusy
+console.log(true || "some string")
+console.log(false || "some string")
+
+console.log(book.translations.spanish)
+
+const spanishTranslation = book.translations.spanish || "NOT TRANSLATED"
+spanishTranslation;
+
+console.log(book.reviews.librarything.reviewsCount)
+
+const countWrong = book.reviews.librarything.reviewsCount || 'No Data'
+countWrong // wants count to be zero instead of No Data
+
+//short circuit for falsy values
+const count = book.reviews.librarything.reviewsCount ?? 'No Data'
+count
+
+//Optional Chaining - question mark to see if the value exists, or else show as undefined
+function getTotalReviewCount(book) {
+  const goodreads = book.reviews.goodreads?.reviewsCount ?? 0;
+  const librarything = book.reviews.librarything?.reviewsCount ?? 0;
+  return goodreads + librarything;
+}
+console.log(getTotalReviewCount(book))
+console.log(getTotalReviewCount(getBook(3)))
+*/
+
+// Map method
+const x = [1, 2, 3, 4, 5].map(el => el * 2);
+console.log(x)
+
+
+const books = getBooks(); //entire book arrays
+//arr with all titles
+const titles = books.map(book => book.title)
+titles
+
+// const essesntialData = book.map(book=>{
+//   return {
+//     title: book.title,
+//     author: book.author
+//   }
+// })
+
+function getTotalReviewCount(book) {
+  const goodreads = book.reviews.goodreads?.reviewsCount ?? 0;
+  const librarything = book.reviews.librarything?.reviewsCount ?? 0;
+  return goodreads + librarything;
+}
+
+const essesntialData = books.map(book => ({
+  title: book.title,
+  author: book.author,
+  reviewsCount: getTotalReviewCount(book),
+}));
+essesntialData
+
+//Array Filter
+const longBooksWithMovie = books.filter((book) => book.pages > 500).filter((book) => book.hasMovieAdaptation);
+longBooksWithMovie
+
+const adventureBooks = books.filter((book) => book.genres.includes("adventure")).map(book => book.title)
+adventureBooks;
+
+//Array Reduce(can do almost every array method mentioned)
+const pagesAllBooks = books.reduce((sum, book) => sum + book.pages, 0) // acc starts at 0
+pagesAllBooks
+
+//Array sort
+const arr = [3, 7, 1, 9, 6]
+const sorted = arr.slice().sort((a, b) => a - b)
+const sortedDescending = arr.slice().sort((a, b) => b - a) // use slice() to avoid changing the original arr
+sorted
+sortedDescending
+arr
+
+const sortedByPages = books.slice().sort((a,b)=> b.pages - a.pages)
+sortedByPages
+
+//Working with immutable arrays
+// 1. Add book object to array
+const newBook = {
+  id: 6,
+  title: "Hary Poter and Chamber Secret",
+  author: "J.K Rowling",
+}
+const booksAfterAdd = [...books, newBook]
+booksAfterAdd
+
+// 2) Delete book object from array
+const booksAfterDelete = booksAfterAdd.filter(book=>book.id !== 3)
+booksAfterDelete
+
+// 3) update book object in the array
+// if book id equals to 1, return empty object, else return original content of book
+// const booksAfterUpdate = booksAfterDelete.map(book=>book.id === 1? {}:book) 
+
+// if book id equals to 1, take from original content and change the pages number
+const booksAfterUpdate = booksAfterDelete.map(book => book.id === 1 ? {...book, pages: 12000000} : book) 
+
+booksAfterUpdate
