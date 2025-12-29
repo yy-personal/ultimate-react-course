@@ -1,3 +1,6 @@
+// process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
+
 const data = [
   {
     id: 1,
@@ -231,6 +234,8 @@ console.log(getTotalReviewCount(book))
 console.log(getTotalReviewCount(getBook(3)))
 */
 
+
+/*
 // Map method
 const x = [1, 2, 3, 4, 5].map(el => el * 2);
 console.log(x)
@@ -299,9 +304,24 @@ booksAfterDelete
 
 // 3) update book object in the array
 // if book id equals to 1, return empty object, else return original content of book
-// const booksAfterUpdate = booksAfterDelete.map(book=>book.id === 1? {}:book) 
+// const booksAfterUpdate = booksAfterDelete.map(book=>book.id === 1? {}:book)
 
 // if book id equals to 1, take from original content and change the pages number
-const booksAfterUpdate = booksAfterDelete.map(book => book.id === 1 ? {...book, pages: 12000000} : book) 
+const booksAfterUpdate = booksAfterDelete.map(book => book.id === 1 ? {...book, pages: 12000000} : book)
 
 booksAfterUpdate
+*/
+
+//Async JS promises
+// fetch('https://jsonplaceholder.typicode.com/todos')
+//   .then(res => res.json())
+//   .then(data => console.log(data)).catch(err => console.log(err));
+
+//Async JS Async/Await, pausing the code inside a function, without running to the next line first
+async function getTodos(){
+  const res = await fetch("https://jsonplaceholder.typicode.com/todos");
+  const data = await res.json()
+  return data
+}
+const todos = getTodos()
+console.log(todos)
