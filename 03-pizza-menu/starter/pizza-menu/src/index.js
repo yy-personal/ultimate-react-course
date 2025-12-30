@@ -74,12 +74,38 @@ function Menu() {
     return (
         <main className="menu">
             <h2>Our menu</h2>
-            <Pizza />
-            <Pizza />
-            <Pizza />
+            <Pizza
+                name="Pizza Spnachi"
+                ingredients="Tomato"
+                photoName="pizzas\focaccia.jpg"
+                price={10}
+            />
+            <Pizza
+                name="Pizza 2"
+                ingredients="2"
+                photoName="pizzas\focaccia.jpg"
+                price={20}
+                // use js mode to pass in integers, arrays, objects
+            />
         </main>
     )
 
+}
+
+function Pizza(props) {
+    console.log(props)
+    // props, refer to the menu above : {name: 'Pizza Spnachi', ingredients: 'Tomato', photoName: 'pizzas\\focaccia.jpg', price: '10'}
+
+    return (
+        <div className="pizza">
+            <div>
+                <img src={props.photoName} alt={props.name} />
+                <h3>{props.name}</h3>
+                <p>{props.ingredients}</p>
+                <span>{props.price + 3}</span>
+            </div>
+        </div>
+    )
 }
 
 function Footer() {
@@ -98,16 +124,7 @@ function Footer() {
     )
 }
 
-function Pizza() {
-    return (
 
-        <div className="pizza">
-            <img src="pizzas\focaccia.jpg" alt="" />
-            <h3>Pizza</h3>
-            <p>Tomato</p>
-        </div>
-    )
-}
 
 //React 18
 const root = ReactDOM.createRoot(document.getElementById("root"))
