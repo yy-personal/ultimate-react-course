@@ -78,14 +78,14 @@ function Menu() {
     return (
         <main className="menu">
             <h2>Our menu</h2>
-            {numPizzas > 0 && (
+            {numPizzas > 0 ? (
                 <ul className="pizzas">
                     {pizzaData.map(pizza => <Pizza
                         //Pass into Pizza function the pizzaObj
                         pizzaObj={pizza}
                         key={pizza.name}
                     />)}
-                </ul>)}
+                </ul>):<p>We are still working on our menu, please come back later</p>}
 
             {/* <Pizza
                 name="Pizza Spnachi"
@@ -108,7 +108,9 @@ function Menu() {
 function Pizza(props) {
     console.log(props)
     // props, refer to the menu above : {name: 'Pizza Spnachi', ingredients: 'Tomato', photoName: 'pizzas\\focaccia.jpg', price: '10'}
-
+    if(props.pizzaObj.soldOut){
+        return null
+    }
     return (
         <li className="pizza">
             <div>
@@ -124,25 +126,29 @@ function Pizza(props) {
 function Footer() {
     const hour = new Date().getHours();
     const openHour = 11
-    const closeHour = 22
+    const closeHour = 24
     const isOpen = (hour >= openHour && hour <= closeHour);
 
     console.log(hour);
     console.log(isOpen)
 
+    // if(!isOpen){
+    //     return <p>We're happy to welcome you between {openHour} and {closeHour}</p>
+    // }
+
     return (
         <div>
             <footer className="footer">
-                {isOpen && (
+                {isOpen ? (
                     <div className="order">
                         <p>
-                            We're Open until {closeHour}. Come visit us or order online
+                            We're open until {closeHour}. Come visit us or order online
                         </p>
                         <button className="btn">
                             Order
                         </button>
                     </div>
-                )}
+                ):<p>We're happy to welcome you between {openHour} and {closeHour}</p>}
             </footer>
         </div>
     )
