@@ -78,14 +78,21 @@ function Menu() {
     return (
         <main className="menu">
             <h2>Our menu</h2>
+
             {numPizzas > 0 ? (
-                <ul className="pizzas">
-                    {pizzaData.map(pizza => <Pizza
-                        //Pass into Pizza function the pizzaObj
-                        pizzaObj={pizza}
-                        key={pizza.name}
-                    />)}
-                </ul>):<p>We are still working on our menu, please come back later</p>}
+                <>
+                    <p>
+                        Authentic Italian cuisine & creative dishes to choose from. All from our stone oven, all organic, all delicious.
+                    </p>
+                    <ul className="pizzas">
+                        {pizzaData.map(pizza => <Pizza
+                            //Pass into Pizza function the pizzaObj
+                            pizzaObj={pizza}
+                            key={pizza.name}
+                        />)}
+                    </ul>
+                </>
+            ) : <p>We are still working on our menu, please come back later</p>}
 
             {/* <Pizza
                 name="Pizza Spnachi"
@@ -105,19 +112,25 @@ function Menu() {
 
 }
 
-function Pizza(props) {
-    console.log(props)
+function Pizza({ pizzaObj }) {
+    console.log(pizzaObj)
+    // console.log(props)
     // props, refer to the menu above : {name: 'Pizza Spnachi', ingredients: 'Tomato', photoName: 'pizzas\\focaccia.jpg', price: '10'}
-    if(props.pizzaObj.soldOut){
-        return null
-    }
+    // if (pizzaObj.soldOut) {
+    //     return null
+    // }
+
+
     return (
-        <li className="pizza">
+        <li className={`pizza ${pizzaObj.soldOut ? "sold-out" : ""}`}>
             <div>
-                <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
-                <h3>{props.pizzaObj.name}</h3>
-                <p>{props.pizzaObj.ingredients}</p>
-                <span>{props.pizzaObj.price + 1}</span>
+                <img src={pizzaObj.photoName} alt={pizzaObj.name} />
+                <h3>{pizzaObj.name}</h3>
+                <p>{pizzaObj.ingredients}</p>
+                <span style={{ textTransform: 'uppercase' }}>{pizzaObj.soldOut ? "Sold out" : pizzaObj.price + 1}</span>
+                {/* {pizzaObj.soldOut ? (<span>SOLD OUT</span>) : (<span>
+                    {pizzaObj.price}
+                </span>)} */}
             </div>
         </li>
     )
@@ -125,7 +138,7 @@ function Pizza(props) {
 
 function Footer() {
     const hour = new Date().getHours();
-    const openHour = 11
+    const openHour = 10
     const closeHour = 24
     const isOpen = (hour >= openHour && hour <= closeHour);
 
@@ -140,21 +153,23 @@ function Footer() {
         <div>
             <footer className="footer">
                 {isOpen ? (
-                    <div className="order">
-                        <p>
-                            We're open until {closeHour}. Come visit us or order online
-                        </p>
-                        <button className="btn">
-                            Order
-                        </button>
-                    </div>
-                ):<p>We're happy to welcome you between {openHour} and {closeHour}</p>}
+                    <Order openHour={openHour} closeHour={closeHour} />
+                ) : <p>We're happy to welcome you between {openHour} and {closeHour}</p>}
             </footer>
         </div>
     )
 }
 
-
+function Order({ closeHour, openHour }) {
+    return <div className="order">
+        <p>
+            We're open from {openHour} until {closeHour}. Come visit us or order online
+        </p>
+        <button className="btn">
+            Order
+        </button>
+    </div>
+}
 
 //React 18
 const root = ReactDOM.createRoot(document.getElementById("root"))
