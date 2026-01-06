@@ -27,43 +27,25 @@ export default function App() {
 }
 
 function Accordion({ data }) {
-  const [curOpen, setCurOpen] = useState(null);
+
+  const [curOpen, setIsOpen] = useState(null)
   return (
-    <div className="accordion">
+    <div currOpen={curOpen} onOpen={setIsOpen} className="accordion">
       {data.map((eachData, idx) => (
         <AccordionItem
-          curOpen={curOpen}
-          onOpen={setCurOpen}
           key={eachData.title}
           num={idx}
           title={eachData.title}
-        >{eachData.text}</AccordionItem>
+          text={eachData.text}
+        />
       ))}
-      <AccordionItem
-        curOpen={curOpen}
-        onOpen={setCurOpen}
-        key="test 1"
-        num={50}
-        title="test 1"
-      >test 1 text
-        <ul>
-          <li>li 1</li>
-          <li>li 2</li>
-        </ul>
-      </AccordionItem>
     </div>
   );
 }
 
-function AccordionItem({ num, title, curOpen, onOpen, children }) {
-  const isOpen = num === curOpen;
-  // this is each of, not all at the same time.
-  // running through each, when current index === the curOpen state, isOpen variable = true
-
+function AccordionItem({ num, title, text, curOpen, onOpen }) {
+  const isOpen = (num === curOpen);
   function handleToggle() {
-    // setIsOpen(!isOpen)
-    onOpen(isOpen ? null : num)
-    //if index isn't open, select the index, if it is open, set it to null so all will become no green
   }
   // by default each box be closed
   return (
@@ -72,6 +54,6 @@ function AccordionItem({ num, title, curOpen, onOpen, children }) {
       <p className="title">{title}</p>
       <p className="icon">{isOpen ? "-" : "+"}</p>
       {isOpen &&
-        <div className="content-box">{children}</div>}
+        <div className="content-box">{text}</div>}
     </div>)
 }
