@@ -75,17 +75,13 @@ function NumResults({ movies }) {
 	);
 }
 function Main({ children }) {
-	return (
-		<main className="main">
-			{children}
-		</main>
-	);
+	return <main className="main">{children}</main>;
 }
 export default function App() {
 	const [movies, setMovies] = useState(tempMovieData);
-  const [watched, setWatched] = useState(tempWatchedData);
+	const [watched, setWatched] = useState(tempWatchedData);
 
-  const [isOpen2, setIsOpen2] = useState(true);
+	const [isOpen2, setIsOpen2] = useState(true);
 
 	return (
 		<>
@@ -94,6 +90,15 @@ export default function App() {
 				<NumResults movies={movies} />
 			</NavBar>
 			<Main>
+				{/* <Box element={<MovieList movies={movies} />}></Box>
+				<Box
+					element={
+						<>
+							<WatchedSummary watched={watched} />
+							<WatchedMovieList watched={watched} />
+						</>
+					}
+				></Box> */}
 				<Box>
 					<MovieList movies={movies} />
 				</Box>
@@ -116,6 +121,7 @@ function NavBar({ children }) {
 }
 
 function Box({ children }) {
+	// or anything
 	const [isOpen, setIsOpen] = useState(true);
 
 	return (
@@ -132,7 +138,6 @@ function Box({ children }) {
 }
 
 // function WatchBoxed() {
-	
 
 // 	return (
 // 		<div className="box">
