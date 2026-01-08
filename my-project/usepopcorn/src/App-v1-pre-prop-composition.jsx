@@ -74,10 +74,11 @@ function NumResults({ movies }) {
 		</p>
 	);
 }
-function Main({ children }) {
+function Main({ movies }) {
 	return (
 		<main className="main">
-			{children}
+			<ListBox movies={movies} />
+			<WatchBoxed />
 		</main>
 	);
 }
@@ -90,12 +91,7 @@ export default function App() {
 				<Search />
 				<NumResults movies={movies} />
 			</NavBar>
-			<Main>
-				<ListBox>
-					<MovieList movies={movies} />
-				</ListBox>
-				<WatchBoxed />
-			</Main>
+			<Main movies={movies} />
 		</>
 	);
 }
@@ -109,7 +105,7 @@ function NavBar({ children }) {
 	);
 }
 
-function ListBox({ children }) {
+function ListBox({ movies }) {
 	const [isOpen1, setIsOpen1] = useState(true);
 
 	return (
@@ -120,7 +116,7 @@ function ListBox({ children }) {
 			>
 				{isOpen1 ? "–" : "+"}
 			</button>
-			{isOpen1 && children}
+			{isOpen1 && <MovieList movies={movies} />}
 		</div>
 	);
 }
