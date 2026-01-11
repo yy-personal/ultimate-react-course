@@ -1,13 +1,26 @@
-// import { useState } from 'react'
-// import './App.css'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Product from "./pages/Product";
+import Pricing from "./pages/Pricing";
+import Homepage from "./pages/Homepage";
+import PageNotFound from "./pages/PageNotFound";
+import AppLayout from "./pages/AppLayout";
 
 function App() {
+	return (
+		<div>
+			{/* The part of page that will always stays the same */}
+			<h1>Hello</h1>
 
-  return (
-      <div>
-        WorldWise
-      </div>
-  )
+			<BrowserRouter>
+				<Routes>
+					<Route path="product" element={<Product />} />
+					<Route path="pricing" element={<Pricing />} />
+					<Route path="app" element={<AppLayout />} />
+					<Route path="/" element={<Homepage />} />
+					<Route path="*" element={<PageNotFound />} />
+				</Routes>
+			</BrowserRouter>
+		</div>
+	);
 }
-
-export default App
+export default App;
