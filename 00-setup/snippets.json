@@ -2,7 +2,9 @@
   "Print to console": {
     "prefix": "cl",
     "scope": "javascript,typescript,javascriptreact",
-    "body": ["console.log($1)"],
+    "body": [
+      "console.log($1)"
+    ],
     "description": "console.log"
   },
   "reactComponent": {
@@ -21,6 +23,14 @@
       ""
     ],
     "description": "React component"
+  },
+  "importCSSModule": {
+    "prefix": "csm",
+    "scope": "javascript,typescript,javascriptreact",
+    "body": [
+      "import styles from './${TM_FILENAME_BASE}.module.css'"
+    ],
+    "description": "Import CSS Module as `styles`"
   },
   "reactStyledComponent": {
     "prefix": "rsc",
