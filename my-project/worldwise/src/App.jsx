@@ -5,6 +5,8 @@ import Homepage from "./pages/Homepage";
 import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./pages/AppLayout";
 import Login from "./pages/Login";
+import CityList from "./components/CityList";
+
 
 function App() {
 	return (
@@ -20,8 +22,7 @@ function App() {
 					<Route path="/login" element={<Login />} />
 					<Route path="app" element={<AppLayout />}>
 						<Route index element={<p>List of cities</p>}></Route>
-						<Route path="cities" element={<p>Cities</p>}></Route>
-
+						<Route path="cities" element={<CityList />}></Route>
 						<Route
 							path="countries"
 							element={<p>Countries</p>}
