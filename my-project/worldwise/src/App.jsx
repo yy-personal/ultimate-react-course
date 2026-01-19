@@ -14,6 +14,13 @@ import { CitiesProvider } from "./contexts/CitiesContext";
 function App() {
 	return (
 		<CitiesProvider>
+			{/*
+				NOTE: CitiesProvider wraps the entire app here.
+				This is WHY components like CityList, CountryList, City, etc.
+				can use useContext(CitiesContext) to access { cities, isLoading, currentCity, getCity }.
+				The context values are NOT global - they're only available because these components
+				are children of <CitiesProvider>.
+			*/}
 			{/* The part of page that will always stays the same */}
 			<h1>Hello TOP of Page at APP</h1>
 
