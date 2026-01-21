@@ -6,8 +6,9 @@ function Home() {
   const username = useSelector((state) => state.user.username);
 
   return (
-    <div>
-      <h1 className='text-xl text-stone-700 font-semibold text-center bg-white'>
+    <div className='my-10 sm:my-16 text-center'>
+      {/* when margin > 640px (sm), my-16 applies */}
+      <h1 className='text-xl font-semibold text-center mb-8'>
         The best pizza.
         <br />
         <span className='text-yellow-500'>Straight out of the oven, straight to you.</span>
