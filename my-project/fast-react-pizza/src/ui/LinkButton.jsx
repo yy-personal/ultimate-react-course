@@ -11,7 +11,7 @@ function LinkButton({ children, to }) {
     );
 
   return (
-    <Link to={to}>
+    <Link className="text-sm text-blue-500 hover:text-blue-900 hover:underline" to={to}>
       {children}
     </Link>
   );

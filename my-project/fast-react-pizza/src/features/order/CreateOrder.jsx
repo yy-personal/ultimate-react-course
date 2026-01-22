@@ -121,7 +121,7 @@ function CreateOrder() {
             }
           />
 
-          <Button disabled={isSubmitting || isLoadingAddress} type="primary">
+          <Button disabled={isSubmitting || isLoadingAddress} type="primary" >
             {isSubmitting
               ? 'Placing order....'
               : `Order now from ${formatCurrency(totalPrice)}`}
