@@ -10,11 +10,11 @@ function CartItem({ item }) {
   const currentQuantity = useSelector(getCurrentQuantityById(pizzaId));
 
   return (
-    <li>
-      <p>
+    <li className='py-3 sm:flex sm:items-center sm:justify-between'>
+      <p className='mb-1 sm:mb-0'>
         {quantity}&times; {name}
       </p>
-      <div>
+      <div className='flex item-center justify-between sm:gap-6'>
         <p>{formatCurrency(totalPrice)}</p>
 
         <UpdateItemQuantity
